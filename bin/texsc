@@ -25,14 +25,26 @@ VERSION = '0.0.0'
 
 STDOUT.sync = true
 
-require 'slop'
 require 'backtrace'
+require 'loog'
+require 'open3'
+require 'slop'
 
 begin
+  log = Loog::REGULAR
   begin
     opts = Slop.parse(ARGV, strict: true, help: true) do |o|
       o.banner = "Usage (#{VERSION}): texsc [options] files
 Options are:"
+      o.string '--pws', 'The location of aspell.en.pws file'
+      o.array '--ignore', 'The name of the command or environment to ignore'
+      o.bool '--version', 'Print current version' do
+        puts VERSION
+        exit
+      end
+      o.bool '--verbose', 'Make it more verbose than usual' do
+        log = Loog::VERBOSE
+      end
       o.bool '--help', 'Read this: https://github.com/yegor256/texsc' do
         puts o
         exit
@@ -42,7 +54,43 @@ Options are:"
     raise ex.message
   end
   raise 'Try --help' if opts.arguments.empty?
-  # to do
+  if opts[:pws]
+    log.debug("PWS with an additional dictionary is here: #{opts[:pws]}")
+    opts[:pws] = File.expand_path(opts[:pws])
+    log.debug("The real path of PWS is: #{opts[:pws]}")
+  end
+  errors = 0
+  opts.arguments.each do |f|
+    tex = File.read(f)
+    opts[:ignore].each do |e|
+      tex = tex.gsub(/\\begin{#{e}}.+\\end{#{e}}/m, '')
+    end
+    log.info("Checking #{f} (#{tex.length} chars)...")
+    cmd = [
+      'aspell',
+      '--ignore=3',
+      '--dont-tex-check-comments',
+      '--lang=en',
+      '--mode=tex',
+      opts[:pws] ? "-p #{opts[:pws]}" : '',
+      opts[:ignore].map { |e| "--add-tex-command '#{e} p'" }.join(' '),
+      'pipe'
+    ].join(' ')
+    log.debug(cmd)
+    Open3.popen3(cmd) do |stdin, stdout, _stderr, _thread|
+      stdin.print(tex)
+      stdin.close
+      stdout.read.split("\n").select { |t| t.start_with?('&') }.each do |t|
+        log.info(t)
+        errors += 1
+      end
+    end
+  end
+  unless errors.zero?
+    log.info("#{errors} spelling errors found")
+    exit 1
+  end
+  log.info('No spelling errors found, the text is clean')
 rescue StandardError => ex
   if opts[:verbose]
     puts Backtrace.new(ex).to_s
