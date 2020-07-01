@@ -18,7 +18,13 @@ This tool simplies the usage of [aspell](http://aspell.net/)
 (you must have it installed)
 for spell-checking of LaTeX files.
 
-Just run it like this for your LaTeX files:
+First, you install it:
+
+```bash
+$ gem install texsc
+```
+
+Then, you ust run it like this for your LaTeX files:
 
 ```bash
 $ texsc article.tex
