@@ -8,17 +8,32 @@
 [![Build Status](https://travis-ci.org/yegor256/texsc.svg)](https://travis-ci.org/yegor256/texsc)
 [![PDD status](http://www.0pdd.com/svg?name=yegor256/texsc)](http://www.0pdd.com/p?name=yegor256/texsc)
 [![Gem Version](https://badge.fury.io/rb/texsc.svg)](http://badge.fury.io/rb/texsc)
-[![Maintainability](https://api.codeclimate.com/v1/badges/74c909f06d4afa0d8001/maintainability)](https://codeclimate.com/github/yegor256/texsc/maintainability)
+[![Maintainability](https://api.codeclimate.com/v1/badges/7593273bfae71f87ea8c/maintainability)](https://codeclimate.com/github/yegor256/texsc/maintainability)
 
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/yegor256/takes/texsc/master/LICENSE.txt)
 [![Test Coverage](https://img.shields.io/codecov/c/github/yegor256/texsc.svg)](https://codecov.io/github/yegor256/texsc?branch=master)
 [![Hits-of-Code](https://hitsofcode.com/github/yegor256/texsc)](https://hitsofcode.com/view/github/yegor256/texsc)
 
-Just run it like this for your LaTeX file:
+This tool simplies the usage of [aspell](http://aspell.net/)
+(you must have it installed)
+for spell-checking of LaTeX files.
+
+Just run it like this for your LaTeX files:
 
 ```bash
 $ texsc article.tex
 ```
+
+You may ignore certain tags or environments using `--ignore` option.
+
+You may also use your own additional dictionary, via `--pws` option.
+The first line of the file should be this one:
+
+```
+personal_ws-1.1 en 741 utf-8
+```
+
+Then, one word per line and they will be ignored during spell checking.
 
 ## How to contribute
 
