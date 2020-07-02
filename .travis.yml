@@ -5,6 +5,10 @@ cache: bundler
 branches:
   only:
     - master
+addons:
+  apt:
+    packages:
+    - aspell
 install:
   - gem install pdd -v 0.20.5
   - travis_retry bundle update
