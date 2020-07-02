@@ -28,7 +28,7 @@ Feature: Command Line Processing
     """
     When I run bin/texsc with "article.tex"
     Then Exit code is not zero
-    And Stdout contains "& friiend 33 21"
+    And Stdout contains "& friiend "
 
   Scenario: Bad LaTeX with PWS can be spell checked
     Given I have a "article.tex" file with content:
