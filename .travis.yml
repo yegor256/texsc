@@ -9,6 +9,7 @@ addons:
   apt:
     packages:
     - aspell
+    - aspell-en
 install:
   - gem install pdd -v 0.20.5
   - travis_retry bundle update
