@@ -38,6 +38,8 @@ begin
 Options are:"
       o.string '--pws', 'The location of aspell.en.pws file'
       o.array '--ignore', 'The name of the command or environment to ignore'
+      o.integer '--min-word-length',
+        'The minimum length of the word to be checked', default: 3
       o.bool '--version', 'Print current version' do
         puts VERSION
         exit
@@ -69,7 +71,7 @@ Options are:"
     log.info("Checking #{f} (#{tex.length} chars)...")
     cmd = [
       'aspell',
-      '--ignore=3',
+      "--ignore=#{opts['min-word-length']}",
       '--dont-tex-check-comments',
       '--lang=en',
       '--mode=tex',

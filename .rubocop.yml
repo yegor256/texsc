@@ -4,29 +4,15 @@ AllCops:
   DisplayCopNames: true
   TargetRubyVersion: 2.3
 
-Style/ClassAndModuleChildren:
-  Enabled: false
 Metrics/LineLength:
   Max: 100
 Layout/EndOfLine:
   EnforcedStyle: lf
-Metrics/CyclomaticComplexity:
-  Max: 20
-Metrics/MethodLength:
-  Enabled: false
-Layout/MultilineMethodCallIndentation:
-  Enabled: false
-Metrics/ParameterLists:
-  Max: 6
-Metrics/ClassLength:
-  Max: 250
-Metrics/AbcSize:
+Style/MultilineTernaryOperator:
   Enabled: false
 Metrics/BlockLength:
-  Max: 100
-Metrics/PerceivedComplexity:
-  Max: 20
-Style/MultilineTernaryOperator:
+  Max: 50
+Layout/AlignParameters:
   Enabled: false
 Layout/EmptyLineAfterGuardClause:
   Enabled: false

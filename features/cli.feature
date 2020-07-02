@@ -56,3 +56,14 @@ Feature: Command Line Processing
     When I run bin/texsc with "--ignore nospell article.tex"
     Then Exit code is zero
 
+  Scenario: Bad LaTeX with too short words can be spell checked
+    Given I have a "article.tex" file with content:
+    """
+    \documentclass{article}
+    \begin{document}
+    How are you, my dear ZZZZ?
+    \end{document}
+    """
+    When I run bin/texsc with "--min-word-length=4 article.tex"
+    Then Exit code is zero
+
