@@ -14,7 +14,7 @@
 [![Test Coverage](https://img.shields.io/codecov/c/github/yegor256/texsc.svg)](https://codecov.io/github/yegor256/texsc?branch=master)
 [![Hits-of-Code](https://hitsofcode.com/github/yegor256/texsc)](https://hitsofcode.com/view/github/yegor256/texsc)
 
-This tool simplies the usage of [aspell](http://aspell.net/)
+This tool simplies the usage of [GNU aspell](http://aspell.net/)
 (you must have it installed)
 for spell-checking of LaTeX files.
 
