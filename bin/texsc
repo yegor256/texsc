@@ -60,6 +60,7 @@ Options are:"
     log.debug("The real path of PWS is: #{opts[:pws]}")
   end
   errors = 0
+  files = 0
   opts.arguments.each do |f|
     tex = File.read(f)
     opts[:ignore].each do |e|
@@ -85,12 +86,13 @@ Options are:"
         errors += 1
       end
     end
+    files += 1
   end
   unless errors.zero?
-    log.info("#{errors} spelling errors found")
+    log.info("#{errors} spelling errors found in #{files} file(s)")
     exit 1
   end
-  log.info('No spelling errors found, the text is clean')
+  log.info("No spelling errors found in #{files} file(s), the text is clean")
 rescue StandardError => ex
   if opts[:verbose]
     puts Backtrace.new(ex).to_s

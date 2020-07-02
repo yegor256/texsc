@@ -33,13 +33,8 @@ $ texsc article.tex
 You may ignore certain tags or environments using `--ignore` option.
 
 You may also use your own additional dictionary, via `--pws` option.
-The first line of the file should be this one:
-
-```
-personal_ws-1.1 en 741 utf-8
-```
-
-Then, one word per line and they will be ignored during spell checking.
+The file must contain one word per line:
+they will be ignored during spell checking.
 
 ## How to contribute
 
