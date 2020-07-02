@@ -80,9 +80,14 @@ Options are:"
       'pipe'
     ].join(' ')
     log.debug(cmd)
-    Open3.popen3(cmd) do |stdin, stdout, _stderr, _thread|
+    Open3.popen3(cmd) do |stdin, stdout, stderr, thread|
       stdin.print(tex)
       stdin.close
+      status = thread.value.to_i
+      unless status.zero?
+        log.error(stderr.read)
+        raise "Failed to run aspell, exit code is #{status}"
+      end
       stdout.read.split("\n").select { |t| t.start_with?('&') }.each do |t|
         log.info(t)
         errors += 1

@@ -34,7 +34,14 @@ You may ignore certain tags or environments using `--ignore` option.
 
 You may also use your own additional dictionary, via `--pws` option.
 The file must contain one word per line:
-they will be ignored during spell checking.
+they will be ignored during spell checking. Don't forget that
+the first line of the file
+[must contain](http://aspell.net/man-html/Format-of-the-Personal-and-Replacement-Dictionaries.html)
+this:
+
+```
+personal_ws-1.1 en 1 utf-8
+```
 
 ## How to contribute
 

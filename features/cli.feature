@@ -40,10 +40,28 @@ Feature: Command Line Processing
     """
     And I have a "aspell.en.pws" file with content:
     """
+    personal_ws-1.1 en 1 utf-8
+    hello
     friiend
     """
     When I run bin/texsc with "--pws aspell.en.pws article.tex"
     Then Exit code is zero
+
+  Scenario: Bad LaTeX with broken PWS can be spell checked
+    Given I have a "article.tex" file with content:
+    """
+    \documentclass{article}
+    \begin{document}
+    How are you, my dear friiend?
+    \end{document}
+    """
+    And I have a "aspell.en.pws" file with content:
+    """
+    friiend
+    """
+    When I run bin/texsc with "--pws aspell.en.pws article.tex"
+    Then Exit code is not zero
+    And Stdout contains "is not in the proper format"
 
   Scenario: Bad LaTeX with --ignore can be spell checked
     Given I have a "article.tex" file with content:
