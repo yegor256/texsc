@@ -30,7 +30,19 @@ Then, you just run it like this for your LaTeX files:
 $ texsc article.tex
 ```
 
-You may ignore certain tags or environments using `--ignore` option.
+You may ignore certain tags or environments using `--ignore` option
+
+```bash
+$ texsc --ignore=citet,citep --ignore=newminted article.tex
+```
+
+You can specify the method of ignoring,
+as [aspell suggests](http://aspell.net/man-html/The-Options.html#TeX_002fLaTeX-Filter)
+(by default it's 'p'):
+
+```bash
+$ texsc --ignore=newminted:opp article.tex
+```
 
 You may also use your own additional dictionary, via `--pws` option.
 The file must contain one word per line:

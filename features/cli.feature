@@ -74,6 +74,17 @@ Feature: Command Line Processing
     When I run bin/texsc with "--ignore nospell article.tex"
     Then Exit code is zero
 
+  Scenario: Bad LaTeX with complex --ignore can be spell checked
+    Given I have a "article.tex" file with content:
+    """
+    \documentclass{article}
+    \begin{document}
+    How are you, my dear \nospell[friiend]{friiend}{friiend}?
+    \end{document}
+    """
+    When I run bin/texsc with "--ignore nospell:opp article.tex"
+    Then Exit code is zero
+
   Scenario: Bad LaTeX with too short words can be spell checked
     Given I have a "article.tex" file with content:
     """
