@@ -92,9 +92,12 @@ Options are:"
         log.error(stderr.read)
         raise "Failed to run aspell, exit code is #{status}"
       end
-      stdout.read.split("\n").select { |t| t.start_with?('&') }.each do |t|
-        log.info(t)
-        errors += 1
+      out = stdout.read
+      unless out.nil?
+        out.split("\n").select { |t| t.start_with?('&') }.each do |t|
+          log.info(t)
+          errors += 1
+        end
       end
     end
     files += 1
