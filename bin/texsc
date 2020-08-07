@@ -70,7 +70,7 @@ Options are:"
       { cmd: c, opts: o || 'p' }
     end
     ignores.each do |i|
-      tex = tex.gsub(/\\begin{#{i[:cmd]}}.+\\end{#{i[:cmd]}}/m, '')
+      tex = tex.gsub(/\\begin{#{Regexp.escape(i[:cmd])}}.+\\end{#{Regexp.escape(i[:cmd])}}/m, '')
     end
     log.info("Checking #{f} (#{tex.length} chars)...")
     cmd = [
