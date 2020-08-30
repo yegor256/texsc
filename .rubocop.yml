@@ -11,7 +11,7 @@ Layout/EndOfLine:
 Style/MultilineTernaryOperator:
   Enabled: false
 Metrics/BlockLength:
-  Max: 50
+  Max: 60
 Layout/AlignParameters:
   Enabled: false
 Layout/EmptyLineAfterGuardClause:

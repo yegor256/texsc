@@ -74,9 +74,12 @@ Options are:"
     end
     log.info("Checking #{f} (#{tex.length} chars)...")
     log.debug(
-      tex.split("\n")
-        .each_with_index.map { |t, i| format('%<pos>4d: %<line>s', pos: i + 1, line: t) }
-        .join("\n")
+      tex.split("\n").each_with_index.map do |t, i|
+        if t.start_with?('---')
+          log.info("Line #{i + 1} starts with '---', this may lead to unexpected errors")
+        end
+        format('%<pos>4d: %<line>s', pos: i + 1, line: t)
+      end.join("\n")
     )
     cmd = [
       'aspell',
@@ -102,7 +105,7 @@ Options are:"
         log.info('aspell produced no output, hm...')
       else
         lines = out.split("\n")
-        log.info("aspell produced #{lines.length} lines of output")
+        log.debug("aspell produced #{lines.length} lines of output")
         lines.each_with_index do |t, i|
           if t.start_with?('&')
             log.info("[#{i}] #{t}")
