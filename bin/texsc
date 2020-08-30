@@ -73,7 +73,11 @@ Options are:"
       tex = tex.gsub(/\\begin{#{Regexp.escape(i[:cmd])}}.+\\end{#{Regexp.escape(i[:cmd])}}/m, '')
     end
     log.info("Checking #{f} (#{tex.length} chars)...")
-    log.debug(tex)
+    log.debug(
+      tex.split("\n")
+        .each_with_index.map { |t, i| format('%<pos>4d: %<line>s', pos: i + 1, line: t) }
+        .join("\n")
+    )
     cmd = [
       'aspell',
       "--ignore=#{opts['min-word-length']}",

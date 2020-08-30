@@ -47,7 +47,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'backtrace', '~> 0.3'
   s.add_runtime_dependency 'loog', '~> 0.2'
   s.add_runtime_dependency 'slop', '~> 4.6'
-  s.add_development_dependency 'codecov', '0.1.10'
+  s.add_development_dependency 'codecov', '0.2.8'
   s.add_development_dependency 'cucumber', '~> 1.3.17'
   s.add_development_dependency 'rake', '12.0.0'
   s.add_development_dependency 'rubocop', '0.61.0'
