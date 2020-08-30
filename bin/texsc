@@ -73,6 +73,7 @@ Options are:"
       tex = tex.gsub(/\\begin{#{Regexp.escape(i[:cmd])}}.+\\end{#{Regexp.escape(i[:cmd])}}/m, '')
     end
     log.info("Checking #{f} (#{tex.length} chars)...")
+    log.debug(tex)
     cmd = [
       'aspell',
       "--ignore=#{opts['min-word-length']}",

@@ -26,7 +26,7 @@ Feature: Command Line Processing
     How are you, my dear friiend?
     \end{document}
     """
-    When I run bin/texsc with "article.tex"
+    When I run bin/texsc with "--verbose article.tex"
     Then Exit code is not zero
     And Stdout contains "& friiend "
 
