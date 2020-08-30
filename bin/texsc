@@ -98,10 +98,16 @@ Options are:"
         raise "Failed to run aspell, exit code is #{status}"
       end
       out = stdout.read
-      unless out.nil?
-        out.split("\n").select { |t| t.start_with?('&') }.each do |t|
-          log.info(t)
-          errors += 1
+      if out.nil?
+        log.info('aspell produced no output, hm...')
+      else
+        lines = out.split("\n")
+        log.info("aspell produced #{lines.length} lines of output")
+        lines.each_with_index do |t, i|
+          if t.start_with?('&')
+            log.info("[#{i}] #{t}")
+            errors += 1
+          end
         end
       end
     end
