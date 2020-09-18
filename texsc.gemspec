@@ -46,7 +46,7 @@ Gem::Specification.new do |s|
   s.extra_rdoc_files = ['README.md', 'LICENSE.txt']
   s.add_runtime_dependency 'backtrace', '~> 0.3'
   s.add_runtime_dependency 'loog', '~> 0.2'
-  s.add_runtime_dependency 'slop', '~> 4.6'
+  s.add_runtime_dependency 'slop', '~> 4.8'
   s.add_development_dependency 'codecov', '0.2.8'
   s.add_development_dependency 'cucumber', '~> 1.3.17'
   s.add_development_dependency 'rake', '12.0.0'
