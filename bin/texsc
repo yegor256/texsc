@@ -60,6 +60,7 @@ Options are:"
     log.debug("PWS with an additional dictionary is here: #{opts[:pws]}")
     opts[:pws] = File.expand_path(opts[:pws])
     log.debug("The real path of PWS is: #{opts[:pws]}")
+    raise "The PWS file #{opts[:pws].inspect} is not found" unless File.exist?(opts[:pws])
   end
   errors = 0
   files = 0
