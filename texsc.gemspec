@@ -32,7 +32,7 @@ Gem::Specification.new do |s|
   s.rubygems_version = '2.2'
   s.required_ruby_version = '>= 2.3'
   s.name = 'texsc'
-  s.version = '0.0.0'
+  s.version = '0.4.3'
   s.license = 'MIT'
   s.summary = 'Spell Checker for LaTeX'
   s.description = 'Simple command-line spell checker for LaTeX documents'
