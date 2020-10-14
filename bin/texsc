@@ -32,8 +32,18 @@ require 'slop'
 
 begin
   log = Loog::REGULAR
+  args = []
+  if File.exist?('.texsc')
+    cfg = File.new('.texsc')
+    body = File.read(cfg)
+    extra = body.split(/\s+/).map(&:strip)
+    args += extra
+    puts "Found #{body.split(/\n/).length} lines in #{File.absolute_path(cfg)}"
+  end
+  args += ARGV
+
   begin
-    opts = Slop.parse(ARGV, strict: true, help: true) do |o|
+    opts = Slop.parse(args, strict: true, help: true) do |o|
       o.banner = "Usage (#{VERSION}): texsc [options] files
 Options are:"
       o.string '--pws', 'The location of aspell.en.pws file'
