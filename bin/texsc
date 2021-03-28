@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-# Copyright (c) 2020 Yegor Bugayenko
+# Copyright (c) 2020-2021 Yegor Bugayenko
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the 'Software'), to deal
@@ -28,6 +28,7 @@ STDOUT.sync = true
 require 'backtrace'
 require 'loog'
 require 'open3'
+require 'shellwords'
 require 'slop'
 
 begin
@@ -94,12 +95,14 @@ Options are:"
     )
     cmd = [
       'aspell',
-      "--ignore=#{opts['min-word-length']}",
+      Shellwords.escape("--ignore=#{opts['min-word-length']}"),
       '--dont-tex-check-comments',
       '--lang=en',
       '--mode=tex',
-      opts[:pws] ? "-p #{opts[:pws]}" : '',
-      ignores.map { |i| "--add-tex-command '#{i[:cmd]} #{i[:opts]}'" }.join(' '),
+      opts[:pws] ? "-p #{Shellwords.escape(opts[:pws])}" : '',
+      ignores.map do |i|
+        "--add-tex-command '#{Shellwords.escape(i[:cmd])} #{Shellwords.escape(i[:opts])}'"
+      end.join(' '),
       'pipe'
     ].join(' ')
     log.debug(cmd)
