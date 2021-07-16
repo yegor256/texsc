@@ -14,7 +14,7 @@ Feature: Command Line Processing
     How are you, my dear friend?
     \end{document}
     """
-    When I run bin/texsc with "article.tex"
+    When I run bin/texsc with ""
     Then Exit code is zero
     And Stdout contains "No spelling errors found in 1 file(s)"
 

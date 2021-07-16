@@ -66,7 +66,8 @@ Options are:"
   rescue Slop::Error => ex
     raise ex.message
   end
-  raise 'Try --help' if opts.arguments.empty?
+  candidates = opts.arguments
+  candidates += Dir['*.tex'] if candidates.empty?
   if opts[:pws]
     log.debug("PWS with an additional dictionary is here: #{opts[:pws]}")
     opts[:pws] = File.expand_path(opts[:pws])
@@ -75,7 +76,7 @@ Options are:"
   end
   errors = 0
   files = 0
-  opts.arguments.each do |f|
+  candidates.each do |f|
     tex = File.read(f)
     ignores = opts[:ignore].map do |e|
       c, o = e.split(':')
