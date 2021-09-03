@@ -57,6 +57,11 @@ this:
 personal_ws-1.1 en 1 utf-8
 ```
 
+To make configuration easier, you can create `.texsc` file next to your
+`.tex` file and place all your command line configuration options over there,
+each one on its own line. You can also have a global configuration file
+at `~/.texsc`, which will be read first.
+
 ## How to contribute
 
 Read [these guidelines](https://www.yegor256.com/2014/04/15/github-guidelines.html).

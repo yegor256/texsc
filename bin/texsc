@@ -31,17 +31,20 @@ require 'open3'
 require 'shellwords'
 require 'slop'
 
+def config(path)
+  args = []
+  f = File.expand_path(path)
+  if File.exist?(f)
+    body = File.read(f)
+    args += body.split(/\s+/).map(&:strip)
+    puts "Found #{args.length} lines in #{File.absolute_path(f)}"
+  end
+  args
+end
+
 begin
   log = Loog::REGULAR
-  args = []
-  if File.exist?('.texsc')
-    cfg = File.new('.texsc')
-    body = File.read(cfg)
-    extra = body.split(/\s+/).map(&:strip)
-    args += extra
-    puts "Found #{body.split(/\n/).length} lines in #{File.absolute_path(cfg)}"
-  end
-  args += ARGV
+  args = config('~/.texsc') + config('.texsc') + ARGV
 
   begin
     opts = Slop.parse(args, strict: true, help: true) do |o|
