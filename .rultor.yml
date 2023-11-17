@@ -4,6 +4,8 @@ assets:
   rubygems.yml: yegor256/home#assets/rubygems.yml
 install: |
   sudo usermod -a -G rvm "$(whoami)"
+  ls -al /usr/local/rvm/gems/ruby-3.2.2
+  touch /usr/local/rvm/gems/ruby-3.2.2/cache
   sudo apt install -y aspell
   pdd -f /dev/null
   bundle install --no-color "--gemfile=$(pwd)/Gemfile"
