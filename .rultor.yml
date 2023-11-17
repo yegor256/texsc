@@ -1,9 +1,12 @@
+docker:
+  image: yegor256/rultor-image:1.22.0
 assets:
   rubygems.yml: yegor256/home#assets/rubygems.yml
 install: |
+  sudo chown -R "$(whoami)" /usr/local/rvm
   sudo apt install -y aspell
   pdd -f /dev/null
-  sudo bundle install --no-color "--gemfile=$(pwd)/Gemfile"
+  bundle install --no-color "--gemfile=$(pwd)/Gemfile"
 release:
   script: |-
     bundle exec rake
@@ -18,7 +21,3 @@ release:
 merge:
   script: |-
     bundle exec rake
-deploy:
-  script: |-
-    echo "There is nothing to deploy"
-    exit -1
