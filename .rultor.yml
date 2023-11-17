@@ -3,7 +3,7 @@ docker:
 assets:
   rubygems.yml: yegor256/home#assets/rubygems.yml
 install: |
-  sudo chown -R "$(whoami)" /usr/local/rvm
+  sudo gpasswd -a "$(whoami)" rvm
   sudo apt install -y aspell
   pdd -f /dev/null
   bundle install --no-color "--gemfile=$(pwd)/Gemfile"
