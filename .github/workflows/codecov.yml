@@ -12,7 +12,7 @@ jobs:
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: 2.7
-      - run: apt-get -y install aspell
+      - run: sudo apt-get -y install aspell
       - run: bundle update
       - run: bundle exec rake
       - uses: codecov/codecov-action@v4
