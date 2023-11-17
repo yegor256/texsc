@@ -23,7 +23,7 @@
 
 VERSION = '0.0.0'
 
-STDOUT.sync = true
+$stdout.sync = true
 
 require 'backtrace'
 require 'loog'
@@ -53,7 +53,7 @@ Options are:"
       o.string '--pws', 'The location of aspell.en.pws file'
       o.array '--ignore', 'The name of the command or environment to ignore'
       o.integer '--min-word-length',
-        'The minimum length of the word to be checked', default: 3
+                'The minimum length of the word to be checked', default: 3
       o.bool '--version', 'Print current version' do
         puts VERSION
         exit
@@ -66,8 +66,8 @@ Options are:"
         exit
       end
     end
-  rescue Slop::Error => ex
-    raise ex.message
+  rescue Slop::Error => e
+    raise e.message
   end
   candidates = opts.arguments
   candidates += Dir['*.tex'] if candidates.empty?
@@ -81,8 +81,8 @@ Options are:"
   files = 0
   candidates.each do |f|
     tex = File.read(f)
-    ignores = opts[:ignore].map do |e|
-      c, o = e.split(':')
+    ignores = opts[:ignore].map do |ee|
+      c, o = ee.split(':')
       { cmd: c, opts: o || 'p' }
     end
     ignores.each do |i|
@@ -139,11 +139,11 @@ Options are:"
     exit 1
   end
   log.info("No spelling errors found in #{files} file(s), the text is clean")
-rescue StandardError => ex
+rescue StandardError => e
   if opts[:verbose]
-    puts Backtrace.new(ex).to_s
+    puts Backtrace.new(e)
   else
-    puts "ERROR: #{ex.message}"
+    puts "ERROR: #{e.message}"
   end
   exit(255)
 end

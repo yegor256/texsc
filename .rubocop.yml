@@ -3,6 +3,8 @@ AllCops:
     - 'assets/**/*'
   DisplayCopNames: true
   TargetRubyVersion: 2.3
+  SuggestExtensions: false
+  NewCops: enable
 
 Metrics/LineLength:
   Max: 100
@@ -12,7 +14,7 @@ Style/MultilineTernaryOperator:
   Enabled: false
 Metrics/BlockLength:
   Max: 60
-Layout/AlignParameters:
+Layout/ParameterAlignment:
   Enabled: false
 Layout/EmptyLineAfterGuardClause:
   Enabled: false
