@@ -23,7 +23,7 @@
 source 'https://rubygems.org'
 gemspec
 
-gem 'cucumber', '9.2.0', require: false
+gem 'cucumber', '9.2.1', require: false
 gem 'rake', '13.2.1', require: false
 gem 'rubocop', '1.64.1', require: false
 gem 'rubocop-rspec', '3.3.0', require: false
