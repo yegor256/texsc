@@ -117,4 +117,3 @@ Feature: Command Line Processing
     """
     When I run bin/texsc with "--min-word-length=4 article.tex"
     Then Exit code is zero
-
