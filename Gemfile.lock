@@ -41,6 +41,7 @@ GEM
     diff-lcs (1.5.1)
     docile (1.4.1)
     ffi (1.17.1-arm64-darwin)
+    ffi (1.17.1-x86_64-linux-gnu)
     json (2.9.1)
     language_server-protocol (3.17.0.4)
     loog (0.6.0)
@@ -85,6 +86,7 @@ GEM
 PLATFORMS
   arm64-darwin-22
   arm64-darwin-24
+  x86_64-linux
 
 DEPENDENCIES
   cucumber (= 9.2.1)
