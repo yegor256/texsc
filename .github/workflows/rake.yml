@@ -21,7 +21,7 @@ jobs:
         with:
           ruby-version: ${{ matrix.ruby }}
           bundler-cache: true
-      - run: sudo apt-get -y install aspell
+      - run: sudo apt-get install --yes aspell
       - run: bundle config set --global path "$(pwd)/vendor/bundle"
       - run: bundle install
       - run: bundle exec rake
