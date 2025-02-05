@@ -6,7 +6,6 @@ AllCops:
   TargetRubyVersion: 2.3
   SuggestExtensions: false
   NewCops: enable
-
 Metrics/LineLength:
   Max: 100
 Layout/EndOfLine:
@@ -19,3 +18,7 @@ Layout/ParameterAlignment:
   Enabled: false
 Layout/EmptyLineAfterGuardClause:
   Enabled: false
+required:
+  - rubocop-rake
+  - rubocop-minitest
+  - rubocop-performance
