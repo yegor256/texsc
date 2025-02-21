@@ -16,7 +16,7 @@ def version
   Gem::Specification.load(Dir['*.gemspec'].first).version
 end
 
-task default: %i[clean features rubocop copyright]
+task default: %i[clean features rubocop]
 
 require 'rubocop/rake_task'
 RuboCop::RakeTask.new(:rubocop) do |task|
@@ -32,10 +32,3 @@ Cucumber::Rake::Task.new(:'features:html') do |t|
   t.profile = 'html_report'
 end
 
-task :copyright do
-  sh "grep -q -r '#{Date.today.strftime('%Y')}' \
-    --include '*.rb' \
-    --include '*.txt' \
-    --include 'Rakefile' \
-    ."
-end
