@@ -1,5 +1,3 @@
-# (The MIT License)
-# 
 # SPDX-FileCopyrightText: Copyright (c) 2020 Yegor Bugayenko
 # SPDX-License-Identifier: MIT
 Feature: Gem Package
