@@ -1,3 +1,7 @@
+# (The MIT License)
+# 
+# SPDX-FileCopyrightText: Copyright (c) 2020 Yegor Bugayenko
+# SPDX-License-Identifier: MIT
 Feature: Command Line Processing
   As a author of LaTeX document I want to check spelling
 
