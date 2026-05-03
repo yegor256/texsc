@@ -8,13 +8,13 @@
 [![PDD status](https://www.0pdd.com/svg?name=yegor256/texsc)](https://www.0pdd.com/p?name=yegor256/texsc)
 [![Gem Version](https://badge.fury.io/rb/texsc.svg)](https://badge.fury.io/rb/texsc)
 [![Maintainability](https://api.codeclimate.com/v1/badges/7593273bfae71f87ea8c/maintainability)](https://codeclimate.com/github/yegor256/texsc/maintainability)
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/yegor256/takes/texsc/master/LICENSE.txt)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/yegor256/texsc/blob/master/LICENSE.txt)
 [![Test Coverage](https://img.shields.io/codecov/c/github/yegor256/texsc.svg)](https://codecov.io/github/yegor256/texsc?branch=master)
 [![Hits-of-Code](https://hitsofcode.com/github/yegor256/texsc)](https://hitsofcode.com/view/github/yegor256/texsc)
 
 Read this blog post: [_Spell Check Your LaTeX Writings Using GNU Aspell_](https://www.yegor256.com/2020/10/06/latex-spell-checking.html)
 
-This tool simplies the usage of [GNU aspell](http://aspell.net/)
+This tool simplifies the usage of [GNU aspell](http://aspell.net/)
 (you must have it installed)
 for spell-checking of LaTeX files.
 
@@ -30,7 +30,7 @@ Then, you just run it like this for your LaTeX files:
 $ texsc article.tex
 ```
 
-You may ignore certain tags or environments using `--ignore` option
+You may ignore certain tags or environments using `--ignore` option:
 
 ```bash
 $ texsc --ignore=citet,citep --ignore=newminted article.tex

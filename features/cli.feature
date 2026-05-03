@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: Copyright (c) 2020 Yegor Bugayenko
 # SPDX-License-Identifier: MIT
 Feature: Command Line Processing
-  As a author of LaTeX document I want to check spelling
+  As an author of LaTeX document I want to check spelling
 
   Scenario: Help can be printed
     When I run bin/texsc with "--help"
