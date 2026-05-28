@@ -18,39 +18,33 @@ def config(path)
   args = []
   f = File.expand_path(path)
   if File.exist?(f)
-    body = File.read(f)
-    args += body.split(/\s+/).map(&:strip)
-    puts "Found #{args.length} lines in #{File.absolute_path(f)}"
+    args += File.read(f).split(/\s+/).map(&:strip)
+    puts("Found #{args.length} lines in #{File.absolute_path(f)}")
   end
   args
 end
 
+opts = nil
+log = Loog::REGULAR
 begin
-  log = Loog::REGULAR
   args = config('~/.texsc') + config('.texsc') + ARGV
-
-  begin
-    opts = Slop.parse(args, strict: true, help: true) do |o|
-      o.banner = "Usage (#{VERSION}): texsc [options] files
+  opts = Slop.parse(args, strict: true, help: true) do |o|
+    o.banner = "Usage (#{VERSION}): texsc [options] files
 Options are:"
-      o.string '--pws', 'The location of aspell.en.pws file'
-      o.array '--ignore', 'The name of the command or environment to ignore'
-      o.integer '--min-word-length',
-                'The minimum length of the word to be checked', default: 3
-      o.bool '--version', 'Print current version' do
-        puts VERSION
-        exit
-      end
-      o.bool '--verbose', 'Make it more verbose than usual' do
-        log = Loog::VERBOSE
-      end
-      o.bool '--help', 'Read this: https://github.com/yegor256/texsc' do
-        puts o
-        exit
-      end
+    o.string('--pws', 'The location of aspell.en.pws file')
+    o.array('--ignore', 'The name of the command or environment to ignore')
+    o.integer('--min-word-length', 'The minimum length of the word to be checked', default: 3)
+    o.bool('--version', 'Print current version') do
+      puts(VERSION)
+      exit
     end
-  rescue Slop::Error => e
-    raise e.message
+    o.bool('--verbose', 'Make it more verbose than usual') do
+      log = Loog::VERBOSE
+    end
+    o.bool('--help', 'Read this: https://github.com/yegor256/texsc') do
+      puts(o)
+      exit
+    end
   end
   candidates = opts.arguments
   candidates += Dir['*.tex'] if candidates.empty?
@@ -58,28 +52,28 @@ Options are:"
     log.debug("PWS with an additional dictionary is here: #{opts[:pws]}")
     opts[:pws] = File.expand_path(opts[:pws])
     log.debug("The real path of PWS is: #{opts[:pws]}")
-    raise "The PWS file #{opts[:pws].inspect} is not found" unless File.exist?(opts[:pws])
+    raise("The PWS file #{opts[:pws].inspect} is not found") unless File.exist?(opts[:pws])
   end
   errors = 0
   files = 0
   candidates.each do |f|
     tex = File.read(f)
-    ignores = opts[:ignore].map do |ee|
-      c, o = ee.split(':')
-      { cmd: c, opts: o || 'p' }
-    end
+    ignores =
+      opts[:ignore].map do |ee|
+        c, o = ee.split(':')
+        { cmd: c, opts: o || 'p' }
+      end
     ignores.each do |i|
       tex = tex.gsub(/\\begin{#{Regexp.escape(i[:cmd])}}.+\\end{#{Regexp.escape(i[:cmd])}}/m, '')
     end
     log.info("Checking #{f} (#{tex.length} chars)...")
-    log.debug(
-      tex.split("\n").each_with_index.map do |t, i|
-        if t.start_with?('---')
-          log.info("Line #{i + 1} starts with '---', this may lead to unexpected errors")
-        end
-        format('%<pos>4d: %<line>s', pos: i + 1, line: t)
-      end.join("\n")
-    )
+    debug = tex.split("\n").each_with_index.map do |t, i|
+      if t.start_with?('---')
+        log.info("Line #{i + 1} starts with '---', this may lead to unexpected errors")
+      end
+      format('%<pos>4d: %<line>s', pos: i + 1, line: t)
+    end
+    log.debug(debug.join("\n"))
     cmd = [
       'aspell',
       Shellwords.escape("--ignore=#{opts['min-word-length']}"),
@@ -87,19 +81,18 @@ Options are:"
       '--lang=en',
       '--mode=tex',
       opts[:pws] ? "-p #{Shellwords.escape(opts[:pws])}" : '',
-      ignores.map do |i|
-        "--add-tex-command '#{Shellwords.escape(i[:cmd])} #{Shellwords.escape(i[:opts])}'"
-      end.join(' '),
+      ignores.map { |i| "--add-tex-command '#{Shellwords.escape(i[:cmd])} #{Shellwords.escape(i[:opts])}'" }
+             .join(' '),
       'pipe'
     ].join(' ')
     log.debug(cmd)
     Open3.popen3(cmd) do |stdin, stdout, stderr, thread|
       stdin.print(tex)
       stdin.close
-      status = thread.value.to_i
+      status = thread.value.exitstatus
       unless status.zero?
         log.error(stderr.read)
-        raise "Failed to run aspell, exit code is #{status}"
+        raise("Failed to run aspell, exit code is #{status}")
       end
       out = stdout.read
       if out.nil?
@@ -119,14 +112,17 @@ Options are:"
   end
   unless errors.zero?
     log.info("#{errors} spelling errors found in #{files} file(s)")
-    exit 1
+    exit(1)
   end
   log.info("No spelling errors found in #{files} file(s), the text is clean")
+rescue Slop::Error => e
+  puts("ERROR: #{e.message}")
+  exit(255)
 rescue StandardError => e
-  if opts[:verbose]
-    puts Backtrace.new(e)
+  if opts&.[](:verbose)
+    puts(Backtrace.new(e))
   else
-    puts "ERROR: #{e.message}"
+    puts("ERROR: #{e.message}")
   end
   exit(255)
 end

@@ -1,27 +1,68 @@
-# SPDX-FileCopyrightText: Copyright (c) 2020 Yegor Bugayenko
+# SPDX-FileCopyrightText: Copyright (c) 2020-2026 Yegor Bugayenko
 # SPDX-License-Identifier: MIT
 ---
+plugins:
+  - rubocop-rake
+  - rubocop-minitest
+  - rubocop-performance
+  - rubocop-elegant
 AllCops:
+  EnabledByDefault: true
+  NewCops: enable
+  Include:
+    - '**/*.rb'
+    - '**/*.gemspec'
+    - '**/Gemfile'
+    - '**/Rakefile'
+    - 'bin/*'
   Exclude:
     - 'assets/**/*'
     - 'vendor/**/*'
   DisplayCopNames: true
-  TargetRubyVersion: 2.3
+  TargetRubyVersion: 3.3
   SuggestExtensions: false
-  NewCops: enable
-Metrics/LineLength:
-  Max: 100
-Layout/EndOfLine:
-  EnforcedStyle: lf
+Style/Copyright:
+  Enabled: false
+Style/ClassAndModuleChildren:
+  Enabled: false
+Elegant/OneClassPerFile:
+  Exclude:
+    - 'bin/*'
+Style/TopLevelMethodDefinition:
+  Exclude:
+    - 'bin/*'
+    - 'Rakefile'
 Style/MultilineTernaryOperator:
   Enabled: false
-Metrics/BlockLength:
-  Max: 60
-Layout/ParameterAlignment:
+Style/DocumentationMethod:
+  Enabled: false
+Style/Documentation:
+  Enabled: false
+Style/MissingElse:
+  Enabled: false
+Style/IfUnlessModifier:
+  Enabled: false
+Style/ImplicitRuntimeError:
+  Enabled: false
+Style/InvertibleUnlessCondition:
+  Enabled: false
+Bundler/GemComment:
+  Enabled: false
+Gemspec/DevelopmentDependencies:
+  Enabled: false
+Lint/ConstantResolution:
   Enabled: false
 Layout/EmptyLineAfterGuardClause:
   Enabled: false
-require:
-  - rubocop-rake
-  - rubocop-minitest
-  - rubocop-performance
+Elegant/NoComments:
+  Exclude:
+    - 'bin/*'
+Elegant/IndentationLadder:
+  Exclude:
+    - 'bin/*'
+Metrics/BlockLength:
+  Exclude:
+    - 'bin/*'
+Layout/MultilineAssignmentLayout:
+  Exclude:
+    - 'bin/*'
