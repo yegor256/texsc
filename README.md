@@ -1,4 +1,6 @@
-<img src="/logo.svg" width="64px"/>
+# Spell Checker for LaTeX
+
+![texsc logo](logo.svg)
 
 [![EO principles respected here](https://www.elegantobjects.org/badge.svg)](https://www.elegantobjects.org)
 [![DevOps By Rultor.com](https://www.rultor.com/b/yegor256/texsc)](https://www.rultor.com/p/yegor256/texsc)
@@ -21,19 +23,19 @@ for spell-checking of LaTeX files.
 First, you install it:
 
 ```bash
-$ gem install texsc
+gem install texsc
 ```
 
 Then, you just run it like this for your LaTeX files:
 
 ```bash
-$ texsc article.tex
+texsc article.tex
 ```
 
 You may ignore certain tags or environments using `--ignore` option:
 
 ```bash
-$ texsc --ignore=citet,citep --ignore=newminted article.tex
+texsc --ignore=citet,citep --ignore=newminted article.tex
 ```
 
 You can specify the method of ignoring,
@@ -41,7 +43,7 @@ as [aspell suggests](http://aspell.net/man-html/The-Options.html#TeX_002fLaTeX-F
 (by default it's 'p'):
 
 ```bash
-$ texsc --ignore=newminted:opp article.tex
+texsc --ignore=newminted:opp article.tex
 ```
 
 You may also use your own additional dictionary, via `--pws` option.
@@ -51,7 +53,7 @@ the first line of the file
 [must contain](http://aspell.net/man-html/Format-of-the-Personal-and-Replacement-Dictionaries.html)
 this:
 
-```
+```text
 personal_ws-1.1 en 1 utf-8
 ```
 
@@ -64,12 +66,13 @@ at `~/.texsc`, which will be read first.
 
 Read [these guidelines](https://www.yegor256.com/2014/04/15/github-guidelines.html).
 Make sure your build is green before you contribute
-your pull request. You will need to have [Ruby](https://www.ruby-lang.org/en/) 2.3+ and
+your pull request. You will need to have
+[Ruby](https://www.ruby-lang.org/en/) 2.3+ and
 [Bundler](https://bundler.io/) installed. Then:
 
-```
-$ bundle update
-$ bundle exec rake
+```bash
+bundle update
+bundle exec rake
 ```
 
 If it's clean and you don't see any error messages, submit your pull request.
