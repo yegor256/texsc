@@ -7,7 +7,8 @@ docker:
 assets:
   rubygems.yml: yegor256/home#assets/rubygems.yml
 install: |
-  sudo apt install -y aspell
+  sudo apt-get update -y
+  sudo apt-get install -y aspell
   pdd -f /dev/null
   bundle install --no-color "--gemfile=$(pwd)/Gemfile"
 release:
