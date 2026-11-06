@@ -7,9 +7,15 @@ name: codecov
   push:
     branches:
       - master
+  pull_request:
+    branches:
+      - master
 jobs:
   codecov:
     timeout-minutes: 15
+    permissions:
+      contents: read
+      id-token: write
     runs-on: ubuntu-26.04
     steps:
       - uses: actions/checkout@v4
@@ -21,8 +27,14 @@ jobs:
       - run: bundle config set --global path "$(pwd)/vendor/bundle"
       - run: bundle install --no-color
       - run: bundle exec rake
+      - name: Check executable coverage
+        run: >-
+          ruby -rjson -e 'reports = JSON.parse(File.read("coverage/.resultset.json"));
+          covered = reports.values.any? { |report| report.fetch("coverage").any? { |path, data|
+          path.end_with?("/bin/texsc") && data.fetch("lines").compact.any?(&:positive?) } };
+          abort "No coverage collected for bin/texsc" unless covered'
       - uses: codecov/codecov-action@v5
         with:
-          token: ${{ secrets.CODECOV_TOKEN }}
+          use_oidc: true
           files: coverage/.resultset.json
           fail_ci_if_error: true

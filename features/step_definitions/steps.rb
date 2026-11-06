@@ -25,7 +25,7 @@ end
 
 When(%r{^I run bin/texsc with "([^"]*)"$}) do |arg|
   home = File.join(File.dirname(__FILE__), '../..')
-  @stdout = `ruby -I#{home}/lib #{home}/bin/texsc #{arg}`
+  @stdout = `ruby -r#{home}/features/support/env -I#{home}/lib -e 'load ARGV.shift' #{home}/bin/texsc #{arg}`
   @exitstatus = $CHILD_STATUS.exitstatus
 end
 
