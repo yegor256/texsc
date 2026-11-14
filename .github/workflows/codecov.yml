@@ -33,7 +33,7 @@ jobs:
           covered = reports.values.any? { |report| report.fetch("coverage").any? { |path, data|
           path.end_with?("/bin/texsc") && data.fetch("lines").compact.any?(&:positive?) } };
           abort "No coverage collected for bin/texsc" unless covered'
-      - uses: codecov/codecov-action@v5
+      - uses: codecov/codecov-action@v7.1.1
         with:
           use_oidc: true
           files: coverage/.resultset.json
